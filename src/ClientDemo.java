@@ -12,17 +12,38 @@ public class ClientDemo {
     }
 
     public static void  SetUpClient() throws IOException {
-        String serverAddress = "192.168.2.39";
-        int serverPort =9900;
-        Socket client = new Socket(serverAddress,serverPort);
 
-        PrintWriter output = new PrintWriter(client.getOutputStream(),true);
-        BufferedReader input = new BufferedReader(new InputStreamReader(client.getInputStream()));
+        try{
+            String serverAddress = "192.168.2.39";
+            int serverPort =9900;
+            Socket client = new Socket(serverAddress,serverPort);
 
-        BufferedReader keyBoard = new BufferedReader(new InputStreamReader(System.in));
+            PrintWriter output = new PrintWriter(client.getOutputStream(),true);
+            BufferedReader input = new BufferedReader(new InputStreamReader(client.getInputStream()));
 
-        System.out.println("Connected to the Server on ip:"+serverAddress+ " port:"+serverPort);
+            BufferedReader keyBoard = new BufferedReader(new InputStreamReader(System.in));
+
+            System.out.println("Connected to the Server on ip:"+serverAddress+ " port:"+serverPort);
+
+            String userInput;
+
+            while ((userInput = keyBoard.readLine()) != null){
+
+                System.out.println("User Input "+userInput);
+
+                output.write(userInput);
+                output.flush();
+                System.out.println("Server Response : " + input.readLine());
+
+                if(userInput.equalsIgnoreCase("exit")) break;
 
 
+            }
+
+            System.out.println("End of Communication");
+
+        } catch (IOException e) {
+            System.out.println("Error "+e.getMessage());
+        }
     }
 }
