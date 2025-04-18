@@ -14,7 +14,7 @@ public class ClientDemo {
     public static void  SetUpClient() throws IOException {
 
         try{
-            String serverAddress = "192.168.2.39";
+            String serverAddress = "192.168.2.21";
             int serverPort =9900;
             Socket client = new Socket(serverAddress,serverPort);
 
@@ -31,7 +31,7 @@ public class ClientDemo {
 
                 System.out.println("User Input "+userInput);
 
-                output.write(userInput);
+                output.println(userInput);
                 output.flush();
                 System.out.println("Server Response : " + input.readLine());
 
